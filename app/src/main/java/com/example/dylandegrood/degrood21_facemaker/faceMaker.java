@@ -1,0 +1,188 @@
+package com.example.dylandegrood.degrood21_facemaker;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.SurfaceView;
+import android.widget.SeekBar;
+import java.util.Random;
+
+/**
+ * faceMaker completely draws the entire face onto the SurfaceView
+ *
+ * Created by dylandegrood on 2/11/18.
+ */
+
+public class faceMaker extends SurfaceView {
+
+    //ints will be converted to paints so Android
+    //can fill the shape with specific color
+    Paint black = new Paint();
+    Paint white = new Paint();
+    Paint skinC = new Paint();
+    Paint hairC = new Paint();
+    Paint eyeC = new Paint();
+
+    int skinColor; //Color value for the color of skin
+    int hairColor; //Color value for the color of hair
+    int eyeColor; //Color value for the color of eye
+    int hairStyle; //value 0,1, or 2 for hair style choice
+
+
+    public faceMaker(Context context) {
+        super(context);
+        generalInit();
+    }
+
+    public faceMaker(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        randomizer(); //calls randomizer method to randomize colors and styles
+        generalInit();
+    }
+
+    public faceMaker(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        generalInit();
+    }
+
+
+    private void generalInit() {
+        setWillNotDraw(false);
+    }
+
+    //onDraw helper methods to draw Left and Right eyes
+    public void drawLeftEye(Canvas canvas){
+
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 - 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 35.0f, white);
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 - 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 20.0f, eyeC);
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 - 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 10.0f, black);
+
+    }
+
+    //onDraw helper methods to draw Left and Right eyes
+    public void drawRightEye(Canvas canvas){
+
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 + 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 35.0f, white);
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 + 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 20.0f, eyeC);
+        canvas.drawCircle(canvas.getWidth() - canvas.getWidth()/2 + 65.0f, canvas.getHeight() - canvas.getHeight()/2 - 60.0f, 10.0f, black);
+
+    }
+
+    //depending on value of hairStyle will draw appropriate hair style
+    public void drawHairStyle(Canvas canvas){
+
+        if(hairStyle == 0){
+
+            canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight() - canvas.getHeight()/2 - 70.0f, 150, hairC);
+            canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, 150.0f, skinC);
+            canvas.drawRect(canvas.getWidth()/2 + 115, canvas.getHeight()/2 - 110, canvas.getWidth()/2 - 115, canvas.getHeight()/2 - 150, hairC);
+
+        }
+        else if(hairStyle == 1){
+
+            canvas.drawRect(canvas.getWidth()/2 + 115, canvas.getHeight()/2 - 100, canvas.getWidth()/2 - 115, canvas.getHeight()/2 - 200, hairC);
+            canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, 150.0f, skinC);
+            canvas.drawOval(canvas.getWidth()/2 + 115, canvas.getHeight()/2 - 110, canvas.getWidth()/2 - 115, canvas.getHeight()/2 - 200, hairC);
+
+        }
+        else{
+
+            canvas.drawOval(canvas.getWidth()/2 + 115, canvas.getHeight()/2 - 80, canvas.getWidth()/2 - 115, canvas.getHeight()/2 - 195, hairC);
+            canvas.drawOval(canvas.getWidth()/2 + 115, canvas.getHeight()/2 - 50, canvas.getWidth()/2 - 115, canvas.getHeight()/2 - 195, hairC);
+            canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, 150.0f, skinC);
+            canvas.drawOval(canvas.getWidth()/2 + 80, canvas.getHeight()/2 - 115, canvas.getWidth()/2 - 80, canvas.getHeight()/2 - 190, hairC);
+
+
+        }
+
+    }
+
+    //Takes in 3 values for red green and blue
+    //to turn it into a Color for hairColor
+    public void setHairColor(int r, int g, int b){
+
+        hairColor = Color.rgb(r, g, b);
+
+    }
+
+    //Takes in 3 values for red green and blue
+    //to turn it into a Color for skinColor
+    public void setSkinColor(int r, int g, int b){
+
+        skinColor = Color.rgb(r, g, b);
+
+    }
+
+    //Takes in 3 values for red green and blue
+    //to turn it into a Color for eyeColor
+    public void setEyeColor(int r, int g, int b){
+
+        eyeColor = Color.rgb(r, g, b);
+
+    }
+
+    //randomly sets colors for skin, hair, and eye
+    //and also sets a random hair style
+    public void randomizer(){
+
+        Random num = new Random();
+
+        skinColor = Color.rgb(num.nextInt(255), num.nextInt(255), num.nextInt(255));
+        hairColor = Color.rgb(num.nextInt(255), num.nextInt(255), num.nextInt(255));
+        eyeColor = Color.rgb(num.nextInt(255), num.nextInt(255), num.nextInt(255));
+        hairStyle = num.nextInt(3);
+
+
+    }
+
+
+    //draws the face on the given canvas
+    public void onDraw(Canvas canvas){
+
+        black.setColor(Color.BLACK);
+        white.setColor(Color.WHITE);
+        skinC.setColor(skinColor);
+        hairC.setColor(hairColor);
+        eyeC.setColor(eyeColor);
+
+        //SeekBar redSeekBar = (SeekBar) findViewById(R.id.redSeekBar);
+        //SeekBar greenSeekBar = (SeekBar) findViewById(R.id.greenSeekBar);
+        //SeekBar blueSeekBar = (SeekBar) findViewById(R.id.blueSeekBar);
+        //int redProgress = redSeekBar.getProgress();
+        //int greenProgress = greenSeekBar.getProgress();
+        //int blueProgress = blueSeekBar.getProgress();
+
+        setHairColor(255,255,255);
+
+        drawHairStyle(canvas);
+
+        drawLeftEye(canvas);
+
+        drawRightEye(canvas);
+
+
+
+    }
+}
+
+/**
+ External Citation
+ Date:     11 February 2018
+ Problem:  onDraw would not draw
+ Resource:
+ http://android-er.blogspot.com/2014/03/simple-
+ surfaceview-example.html
+ Solution: Used this xml example to change Surface View
+ */
+
+/**
+ External Citation
+ Date:     11 February 2018
+ Problem:  Did not know how to put in a picture
+ Resource:
+ https://stackoverflow.com/questions/5176441/drawable-
+ image-on-a-canvas
+ Solution: Used 3 lines of code from stackoverflow
+ */
