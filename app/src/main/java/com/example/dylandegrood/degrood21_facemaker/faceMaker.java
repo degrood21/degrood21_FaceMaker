@@ -28,7 +28,7 @@ public class faceMaker extends SurfaceView {
     int skinColor; //Color value for the color of skin
     int hairColor; //Color value for the color of hair
     int eyeColor; //Color value for the color of eye
-    int hairStyle; //value 0,1, or 2 for hair style choice
+    int hairStyle = 0; //value 0,1, or 2 for hair style choice
 
 
     public faceMaker(Context context) {
@@ -99,6 +99,14 @@ public class faceMaker extends SurfaceView {
 
     }
 
+    public void drawMouth(Canvas canvas) {
+
+        canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight() - canvas.getHeight()/2 + 70.0f, 40, black);
+        canvas.drawRect(canvas.getWidth()/2 + 40, canvas.getHeight()/2 + 64, canvas.getWidth()/2 - 40, canvas.getHeight()/2 + 30, black);
+
+    }
+
+
     //Takes in 3 values for red green and blue
     //to turn it into a Color for hairColor
     public void setHairColor(int r, int g, int b){
@@ -123,6 +131,12 @@ public class faceMaker extends SurfaceView {
 
     }
 
+    public  void setHairStyle(int styleNum){
+
+        hairStyle = styleNum;
+
+    }
+
     //randomly sets colors for skin, hair, and eye
     //and also sets a random hair style
     public void randomizer(){
@@ -134,6 +148,7 @@ public class faceMaker extends SurfaceView {
         eyeColor = Color.rgb(num.nextInt(255), num.nextInt(255), num.nextInt(255));
         hairStyle = num.nextInt(3);
 
+        //invalidate();
 
     }
 
@@ -147,24 +162,17 @@ public class faceMaker extends SurfaceView {
         hairC.setColor(hairColor);
         eyeC.setColor(eyeColor);
 
-        //SeekBar redSeekBar = (SeekBar) findViewById(R.id.redSeekBar);
-        //SeekBar greenSeekBar = (SeekBar) findViewById(R.id.greenSeekBar);
-        //SeekBar blueSeekBar = (SeekBar) findViewById(R.id.blueSeekBar);
-        //int redProgress = redSeekBar.getProgress();
-        //int greenProgress = greenSeekBar.getProgress();
-        //int blueProgress = blueSeekBar.getProgress();
-
-        setHairColor(255,255,255);
-
         drawHairStyle(canvas);
 
         drawLeftEye(canvas);
 
         drawRightEye(canvas);
 
-
+        drawMouth(canvas);
 
     }
+
+
 }
 
 /**

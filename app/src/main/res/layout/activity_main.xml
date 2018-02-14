@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteX="8dp">
 
         <com.example.dylandegrood.degrood21_facemaker.faceMaker
-            android:id="@+id/surfaceView"
+            android:id="@+id/surfaceView_faceMaker"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="3"
@@ -30,26 +30,34 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/hairRadio"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/groupRadio"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hair" />
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/eyeRadio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Eyes" />
+                <RadioButton
+                    android:id="@+id/skinRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Skin" />
 
-            <RadioButton
-                android:id="@+id/skinRadio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Skin" />
+                <RadioButton
+                    android:id="@+id/eyeRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Eyes" />
+
+                <RadioButton
+                    android:id="@+id/hairRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hair" />
+            </RadioGroup>
 
         </LinearLayout>
 
