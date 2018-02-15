@@ -1,10 +1,7 @@
 package com.example.dylandegrood.degrood21_facemaker;
 
-import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.SurfaceView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -13,7 +10,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+/**
+ *@author Dylan DeGrood
+ */
 
 public class MainActivity extends AppCompatActivity{
 
@@ -24,8 +23,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Makes an instance of my faceMaker class
         faceMaker face = (faceMaker) findViewById(R.id.surfaceView_faceMaker);
-       //faceMakerListener faceListener = new faceMakerListener(face);
 
         //All are initializing the various sliders, buttons and textviews, etc
         TextView redValueTV = (TextView)findViewById(R.id.redValueTV);
@@ -47,12 +46,6 @@ public class MainActivity extends AppCompatActivity{
         Spinner hairStyleSp = (Spinner) findViewById(R.id.hairStyleSpinner);
 
         //All the listeners for the initailized variables
-
-        //faceMakerListener randomButtonListener = new faceMakerListener(randomButton);
-        //faceMakerListener hairRadioListener = new faceMakerListener(hairRadio);
-        //faceMakerListener eyeRadioListener = new faceMakerListener(eyeRadio);
-        //faceMakerListener skinRadioListener = new faceMakerListener(skinRadio);
-
         faceMakerListener faceListener = new faceMakerListener(redValueTV, redSeekBar, face, radioGroup, randomButton, hairStyleSp);
         faceListener.addsb(greenValueTV, greenSeekBar);
         faceListener.addsb(blueValueTV, blueSeekBar);
@@ -60,9 +53,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         //connecting listeners to the listening class
-        //hairRadio.setOnClickListener(faceListener);
-        //eyeRadio.setOnClickListener(faceListener);
-        //skinRadio.setOnClickListener(faceListener);
+        radioGroup.setOnCheckedChangeListener(faceListener);
 
         randomButton.setOnClickListener(faceListener);
 
@@ -81,7 +72,7 @@ public class MainActivity extends AppCompatActivity{
 
         hairStyleSp.setOnItemSelectedListener(faceListener);
 
-        radioGroup.setOnCheckedChangeListener(faceListener);
+
 
 
     }

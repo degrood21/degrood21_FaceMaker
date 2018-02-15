@@ -1,5 +1,6 @@
 package com.example.dylandegrood.degrood21_facemaker;
 
+import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by dylandegrood on 2/11/18.
+ * @author Dylan DeGrood
  */
 
 public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Spinner.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener{
@@ -23,7 +24,6 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
     Button button;
     Spinner spinner;
     faceMaker myFace = null;
-    RadioButton radioButton;
     int radioButtoninUse;
 
     private ArrayList<SeekBar> allSBs = new ArrayList<SeekBar>();
@@ -33,18 +33,8 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
     int green;
     int blue;
 
-    //int redSkin;
-    //int greenSkin;
-    //int blueSkin;
-
-    //int redEye;
-    //int greenEye;
-    //int blueEye;
-
-    //int redHair;
-    //int greenHair;
-    //int blueHair;
-
+    //Ctor which takes in all variables and sets them
+    //to the correct variable above
     public faceMakerListener(TextView initTV, SeekBar sb, faceMaker initFace, RadioGroup rg, Button b, Spinner s) {
 
         allTVs.add(initTV);
@@ -55,6 +45,7 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
         spinner = s;
     }
 
+    //adds additional seekbars and textviews to ArrayLists
     public void addsb(TextView TV, SeekBar sb){
 
         allTVs.add(TV);
@@ -62,17 +53,10 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
 
     }
 
-   // public faceMakerListener(faceMaker fM){
-
-   //     face = fM;
-
-    //}
-
-
     @Override
     public void onClick(View v) {
 
-            myFace.randomizer();
+            myFace.randomizer(); //calls randomizer
             myFace.invalidate();
 
     }
@@ -80,6 +64,7 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+        //changes all textviews according to progress
         for(int i = 0; i < allSBs.size(); i++) {
 
             if (seekBar == allSBs.get(i)) {
@@ -93,37 +78,37 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
         green = allSBs.get(1).getProgress();
         blue = allSBs.get(2).getProgress();
 
-        if(radioButtoninUse == 0 ){
+        //depending on radioButton will
+        //set color of face attribute selected
+        if(radioButtoninUse == 0){
 
-            //redSkin = allSBs.get(0).getProgress();
-            //greenSkin = allSBs.get(1).getProgress();
-            //blueSkin = allSBs.get(2).getProgress();
+            myFace.setredSkinColor(red);
+            myFace.setgreenSkinColor(green);
+            myFace.setblueSkinColor(blue);
 
             myFace.setSkinColor(red, green, blue);
 
         }
-        else if( radioButtoninUse == 1){
+        else if(radioButtoninUse == 1){
 
-            //redEye = allSBs.get(0).getProgress();
-            //greenEye = allSBs.get(1).getProgress();
-            //blueEye = allSBs.get(2).getProgress();
+            myFace.setredEyeColor(red);
+            myFace.setgreenEyeColor(green);
+            myFace.setblueEyeColor(blue);
 
             myFace.setEyeColor(red, green, blue);
 
         }
-        else{
+        else if(radioButtoninUse == 2){
 
-            //redHair = allSBs.get(0).getProgress();
-            //greenHair = allSBs.get(1).getProgress();
-            //blueHair = allSBs.get(2).getProgress();
+            myFace.setredHairColor(red);
+            myFace.setgreenHairColor(green);
+            myFace.setblueHairColor(blue);
 
             myFace.setHairColor(red, green, blue);
 
         }
 
         myFace.invalidate();
-
-        // updateTV.setText(String.valueOf(progress));
 
     }
 
@@ -140,6 +125,8 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        //depending on spinner selection will
+        //redraw the corresponding hairstyle
         if (parent.getId() == spinner.getId()) {
             if (position == 0) {
 
@@ -168,16 +155,18 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
-        radioButton = (RadioButton) group.findViewById(checkedId);
-
+        //when switching RadioButtons
+        //the progress bars will adjust accordingly
+        //(In theory) (could not get to work)
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.skinRadio:
                 if (R.id.skinRadio == checkedId){
 
                     radioButtoninUse = 0;
-                    //allSBs.get(0).setProgress(redSkin);
-                    //allSBs.get(1).setProgress(greenSkin);
-                    //allSBs.get(2).setProgress(blueSkin);
+
+                    //allSBs.get(0).setProgress(myFace.getredSkinColor());
+                    //allSBs.get(1).setProgress(myFace.getgreenSkinColor());
+                    //allSBs.get(2).setProgress(myFace.getblueSkinColor());
 
                 }
                 break;
@@ -185,9 +174,10 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
                 if(R.id.eyeRadio == checkedId){
 
                     radioButtoninUse = 1;
-                    //allSBs.get(0).setProgress(redEye);
-                    //allSBs.get(1).setProgress(greenEye);
-                    //allSBs.get(2).setProgress(blueEye);
+
+                    //allSBs.get(0).setProgress(myFace.getredEyeColor());
+                    //allSBs.get(1).setProgress(myFace.getgreenEyeColor());
+                    //allSBs.get(2).setProgress(myFace.getblueEyeColor());
 
                 }
                 break;
@@ -195,9 +185,10 @@ public class faceMakerListener implements View.OnClickListener, SeekBar.OnSeekBa
                 if(R.id.hairRadio == checkedId){
 
                     radioButtoninUse = 2;
-                    //allSBs.get(0).setProgress(redHair);
-                    //allSBs.get(1).setProgress(greenHair);
-                    //allSBs.get(2).setProgress(blueHair);
+
+                    //allSBs.get(0).setProgress(myFace.getredHairColor());
+                    //allSBs.get(1).setProgress(myFace.getgreenHairColor());
+                    //allSBs.get(2).setProgress(myFace.getblueHairColor());
 
                 }
                 break;

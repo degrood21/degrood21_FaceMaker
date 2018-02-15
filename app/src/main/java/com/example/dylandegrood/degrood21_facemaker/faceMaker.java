@@ -6,13 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
-import android.widget.SeekBar;
 import java.util.Random;
 
 /**
  * faceMaker completely draws the entire face onto the SurfaceView
  *
- * Created by dylandegrood on 2/11/18.
+ * @author Dylan DeGrood
  */
 
 public class faceMaker extends SurfaceView {
@@ -29,6 +28,19 @@ public class faceMaker extends SurfaceView {
     int hairColor; //Color value for the color of hair
     int eyeColor; //Color value for the color of eye
     int hairStyle = 0; //value 0,1, or 2 for hair style choice
+
+    //All ints below help with the getters and setters
+    int rskinColor;
+    int gskinColor;
+    int bskinColor;
+
+    int reyeColor;
+    int geyeColor;
+    int beyeColor;
+
+    int rhairColor;
+    int ghairColor;
+    int bhairColor;
 
 
     public faceMaker(Context context) {
@@ -152,6 +164,75 @@ public class faceMaker extends SurfaceView {
 
     }
 
+    //getters
+    public int getredSkinColor(){return rskinColor;}
+    public int getgreenSkinColor(){return gskinColor;}
+    public int getblueSkinColor(){return bskinColor;}
+
+    public int getredEyeColor(){return reyeColor;}
+    public int getgreenEyeColor(){return geyeColor;}
+    public int getblueEyeColor(){return beyeColor;}
+
+    public int getredHairColor(){return rhairColor;}
+    public int getgreenHairColor(){return ghairColor;}
+    public int getblueHairColor(){return bhairColor;}
+
+    public int getHairStyle(){return hairStyle;}
+
+    //setters
+    public void setredSkinColor(int progress){
+
+        rskinColor = progress;
+
+    }
+
+    public void setgreenSkinColor(int progress){
+
+        gskinColor = progress;
+
+    }
+
+    public void setblueSkinColor(int progress){
+
+        bskinColor = progress;
+
+    }
+
+    public void setredHairColor(int progress){
+
+        rhairColor = progress;
+
+    }
+
+    public void setgreenHairColor(int progress){
+
+        ghairColor = progress;
+
+    }
+
+    public void setblueHairColor(int progress){
+
+        bhairColor = progress;
+
+    }
+
+    public void setredEyeColor(int progress){
+
+        reyeColor = progress;
+
+    }
+
+    public void setgreenEyeColor(int progress){
+
+        geyeColor = progress;
+
+    }
+
+    public void setblueEyeColor(int progress){
+
+        beyeColor = progress;
+
+    }
 
     //draws the face on the given canvas
     public void onDraw(Canvas canvas){
@@ -161,6 +242,7 @@ public class faceMaker extends SurfaceView {
         skinC.setColor(skinColor);
         hairC.setColor(hairColor);
         eyeC.setColor(eyeColor);
+
 
         drawHairStyle(canvas);
 
